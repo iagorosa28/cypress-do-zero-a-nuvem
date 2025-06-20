@@ -1,10 +1,18 @@
 /* describe -> switch de testes */
 /* it -> caso de teste */
 
+const { faker } = require('@faker-js/faker'); // biblioteca para criar dados "fake"
+
 describe('Central de Atendimento ao Cliente TAT', () => {
+
+  const user = {}; // Objeto vazio em JavaScript
   
   beforeEach(() => {
     cy.visit('./src/index.html')
+
+    user.email = faker.internet.email(); // Criar um email fake
+    user.firstname = faker.name.firstName(); // Criar um nome fake
+    user.lastname = faker.name.lastName();
   })
 
   it('verifica o título da aplicação', () => {
@@ -68,5 +76,14 @@ describe('Central de Atendimento ao Cliente TAT', () => {
     cy.get('button.button').click()
     cy.get('span.error').should('be.visible')
   })
+
+  /* Exercício extra 7 */
+  it.only('envia o formuário com sucesso usando um comando customizado', () => { // '.only' ali no 'it' é para rodar só esse 'it'
+    cy.fillMandatoryFieldsAndSubmit(user); // comando customizado que fiz em 'cypress -> support -> commands.js'
+  })
+
+  /* Exercício extra 8 */
+  // Eu tinha que trocar o modo de achar o botão para cy.contains()
+  // Fiz isso no comando customizado que fiz para o exercício 7, só seguir o caminho que comentei lá no exercício 7
 
 })
