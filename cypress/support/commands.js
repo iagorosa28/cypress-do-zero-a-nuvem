@@ -24,7 +24,7 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-Cypress.Commands.add('fillMandatoryFieldsAndSubmit', (user) => {
+Cypress.Commands.add('fillMandatoryFieldsAndSubmit', (user) => { // daria para fazer com que o user tenha 'valores padrão'
     cy.get('input#firstName').type(user.firstname)
     cy.get('input#lastName').type(user.lastname)
     cy.get('input#email').type(user.email)
@@ -32,3 +32,5 @@ Cypress.Commands.add('fillMandatoryFieldsAndSubmit', (user) => {
     cy.contains('button', 'Enviar').click() // Exercício extra 8 (troquei o get por contains)
     cy.get('span.success').should('be.visible')
 })
+// valores padrão seriam valores utilizados caso não passe nada no parametro (igual aquele esquema em python)
+// ai ficaria -> (user = {firstname: 'Iago', lastname: 'Oliveira', etc})

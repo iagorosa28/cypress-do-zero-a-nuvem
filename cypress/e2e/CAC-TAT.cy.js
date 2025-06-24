@@ -22,13 +22,16 @@ describe('Central de Atendimento ao Cliente TAT', () => {
   })
 
   it('preenche os campos obrigatórios e envia o formulário', () => {
+    const LongText = Cypress._.repeat('iabadabadu', 50); // repitir 'iabadabadu' 50 vezes (da aula de resolução)
+
     cy.get('input#firstName').type('Iago')
     cy.get('input#lastName').type('Oliveira')
     cy.get('input#email').type('iagorosa@gmail.com')
     // cy.get('textarea#open-text-area').type('sla, se vira') // Exercício
-    cy.get('textarea#open-text-area').type('iabadabadu iabadabadu iabadabadu iabadabadu', { delay: 0 }) // Exercício extra 1
-    cy.get('button.button').click()
+    cy.get('textarea#open-text-area').type(LongText, { delay: 0 }) // Exercício extra 1 -- sobrescrever o delay
+    cy.get('button.button').click() // daria para pegar '.button' apenas, ou como na correção, 'button[type="submit"]'
     cy.get('span.success').should('be.visible') // pega mensagem de sucesso
+    /* poderia pegar usuando apenas '.success' tbm, que seria a classe success*/
   })
 
   /* Exercício extra 2 */
@@ -39,6 +42,7 @@ describe('Central de Atendimento ao Cliente TAT', () => {
     cy.get('textarea#open-text-area').type('sla, se vira')
     cy.get('button.button').click()
     cy.get('span.error').should('be.visible') // pega mensagem de erro
+    /* poderia pegar usuando apenas '.error' tbm, que seria a classe error*/
   })
 
   /* Exercício extra 3 */
@@ -46,6 +50,13 @@ describe('Central de Atendimento ao Cliente TAT', () => {
     cy.get('input#phone').type('abc')
     cy.get('input#phone').should('have.value', '') // verificar se no campo não tem valor
     /* Talvez daria para fazer not.have.value */
+    
+    /* Resolução do moço */
+    /* 
+    cy.get('#phone').
+      .type('abc')
+      .should('have.value', '')
+    */
   })
 
   /* Exercício extra 4 */
@@ -69,6 +80,7 @@ describe('Central de Atendimento ao Cliente TAT', () => {
     cy.get('input#lastName').clear().should('have.value', '')
     cy.get('input#email').clear().should('have.value', '')
     cy.get('input#phone').clear().should('have.value', '')
+    // dava para fazer assim tbm -> cy.get('input#firstName').type('Iago').should('have.value', 'Iago').clear().should('have.value', '')
   })
 
   /* Exercício extra 6 */
@@ -78,7 +90,7 @@ describe('Central de Atendimento ao Cliente TAT', () => {
   })
 
   /* Exercício extra 7 */
-  it.only('envia o formuário com sucesso usando um comando customizado', () => { // '.only' ali no 'it' é para rodar só esse 'it'
+  it('envia o formuário com sucesso usando um comando customizado', () => { // '.only' ali no 'it' é para rodar só esse 'it'
     cy.fillMandatoryFieldsAndSubmit(user); // comando customizado que fiz em 'cypress -> support -> commands.js'
   })
 
