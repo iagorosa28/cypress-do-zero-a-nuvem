@@ -139,4 +139,32 @@ describe('Central de Atendimento ao Cliente TAT', () => {
   })
   // esse .last() verifica o último elemento escrito do tipo checkbox (algo assim kkkk)
 
+  /* Ex. P (S7/L6) */
+  it('seleciona um arquivo da pasta fixtures', () => {
+    cy.get('input[type="file"]') // aqui podia ser input#file-upload, ou só #file-upload
+      .selectFile('cypress/fixtures/example.json') //selecionar o arquivo com o endereço dele
+      .then(input => { // podia ser tbm o should(input => {...})
+        expect(input[0].files[0].name).to.equal('example.json') // "... o nome correto do arquivo é persistido no objeto de files do input"
+      })
+  })
+
+  /* Ex. Extra 1 (S7/L6) */
+  it('seleciona um arquivo simulando um drag-and-drop', () => {
+    cy.get('input[type="file"]')
+      .selectFile('cypress/fixtures/example.json', { action: 'drag-drop' }) // "arrastar e soltar"
+      .then(input => {
+        expect(input[0].files[0].name).to.equal('example.json')
+      })
+  })
+
+  /* Ex. Extra 2 (S7/L6) */
+  it('seleciona um arquivo utilizando uma fixture para a qual foi dada um alias', () => {
+    cy.fixture('example.json', null).as('exemplo') // carrega fixture e cria alias
+    cy.get('input[type="file"]') // quando eu fiz eu não botei o 'cy', botei direto '.get' e funcionou tbm
+      .selectFile('@exemplo') // utilizando o alias
+      .then(input => {
+        expect(input[0].files[0].name).to.equal('example.json')
+      })
+  })
+
 })
