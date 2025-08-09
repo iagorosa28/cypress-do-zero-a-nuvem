@@ -64,7 +64,7 @@ describe('Central de Atendimento ao Cliente TAT', () => {
     cy.get('input#firstName').type('Iago')
     cy.get('input#lastName').type('Oliveira')
     cy.get('input#email').type('iagorosa@gmail.com')
-    cy.get('input#phone-checkbox').click() // clica no checkbox
+    cy.get('input#phone-checkbox').check() // clica no checkbox // troquei o click() por check() -> S6/L5 Ex. Extra
     cy.get('textarea#open-text-area').type('sla, se vira')
     cy.get('button.button').click()
     cy.get('span.error').should('be.visible') // pega mensagem de sucesso
@@ -129,5 +129,14 @@ describe('Central de Atendimento ao Cliente TAT', () => {
   // tem maneiras mais simples de fazer, mas ele quis mostrar essas funcionalidades 'each' e 'wrap'
   // 'each' itera sobre cada item de uma coleção (como um array ou coleção jQuery) e executa uma função de callback para cada elemento
   // 'wrap' transforma qualquer valor — objeto, elemento DOM, array, promise — em um “sujeito” (subject) do Cypress, permitindo encadear comandos seguintes
+
+  /* S6/L5, Ex. P. */
+  it('marca ambos checkboxes, depois desmarca o último', () => {
+    cy.get('input[type="checkbox"]').check().should('be.checked')
+    cy.get('input[type="checkbox"]').last().uncheck().should('not.be.checked')
+    // cy.get('input[type="checkbox"]').check().should('be.checked').last().uncheck().should('not.be.checked')
+    // essa parte comentada foi a solução dele
+  })
+  // esse .last() verifica o último elemento escrito do tipo checkbox (algo assim kkkk)
 
 })
