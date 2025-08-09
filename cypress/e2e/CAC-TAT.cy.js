@@ -98,4 +98,19 @@ describe('Central de Atendimento ao Cliente TAT', () => {
   // Eu tinha que trocar o modo de achar o botão para cy.contains()
   // Fiz isso no comando customizado que fiz para o exercício 7, só seguir o caminho que comentei lá no exercício 7
 
+  /* Seção 4, do curso, Exercício "principal" */
+  it.only('seleciona um produto (YouTube) por seu texto', () => {
+    cy.get('select#product').select('YouTube').should('have.value', 'youtube')
+  })
+
+  /* Seção 4, do curso, Exercício extra 1 */
+  it.only('seleciona um produto (Mentoria) por seu valor (value)', () => {
+    cy.get('select#product').select('mentoria').should('have.value', 'mentoria')
+  })
+
+  /* Seção 4, do curso, Exercício extra 2 */
+  it.only('seleciona um produto (Blog) por seu índice', () => {
+    cy.get('select#product').select(1).should('have.value', 'blog')
+  })
+
 })
