@@ -99,18 +99,35 @@ describe('Central de Atendimento ao Cliente TAT', () => {
   // Fiz isso no comando customizado que fiz para o exercício 7, só seguir o caminho que comentei lá no exercício 7
 
   /* Seção 4, do curso, Exercício "principal" */
-  it.only('seleciona um produto (YouTube) por seu texto', () => {
+  it('seleciona um produto (YouTube) por seu texto', () => {
     cy.get('select#product').select('YouTube').should('have.value', 'youtube')
   })
+  // de vez select#product, pode ser direto #product
 
   /* Seção 4, do curso, Exercício extra 1 */
-  it.only('seleciona um produto (Mentoria) por seu valor (value)', () => {
+  it('seleciona um produto (Mentoria) por seu valor (value)', () => {
     cy.get('select#product').select('mentoria').should('have.value', 'mentoria')
   })
 
   /* Seção 4, do curso, Exercício extra 2 */
-  it.only('seleciona um produto (Blog) por seu índice', () => {
+  it('seleciona um produto (Blog) por seu índice', () => {
     cy.get('select#product').select(1).should('have.value', 'blog')
   })
+
+  /* Seção 5 do curso, ou Lição 4 do github, Exercício ""principal */
+  it('marca o tipo de atendimento "Feedback"', () => {
+    //cy.get('[type="radio"]').check('feedback').should('be.checked') o que eu fiz...
+    cy.get('input[type="radio"][value="feedback"]').check().should('be.checked') // resolução do cara
+  })
+
+  /* Exercício Extra (S5/L4) */
+  it('marca cada tipo de atendimento', () => {
+    cy.get('input[type="radio"]').each(typeOfService => {
+      cy.wrap(typeOfService).check().should('be.checked')
+    })
+  })
+  // tem maneiras mais simples de fazer, mas ele quis mostrar essas funcionalidades 'each' e 'wrap'
+  // 'each' itera sobre cada item de uma coleção (como um array ou coleção jQuery) e executa uma função de callback para cada elemento
+  // 'wrap' transforma qualquer valor — objeto, elemento DOM, array, promise — em um “sujeito” (subject) do Cypress, permitindo encadear comandos seguintes
 
 })
