@@ -1,28 +1,32 @@
-# 🌲 Cypress, do Zero à Nuvem ☁️
+# Cypress: Do Zero à Nuvem
 
-👋 Seja bem-vindo(a)!
+Projeto desenvolvido durante o curso **Cypress: Do Zero à Nuvem**, ministrado por Walmyr.  
+Ao longo das aulas, fui realizando modificações e aprimoramentos no projeto para consolidar os aprendizados.
 
-É muito bom tê-lo(a) aqui. Tenho certeza que você vai amar esse curso. ❤️
+## Pré-requisitos
 
-## O que você vai aprender?
+Antes de começar, verifique se você tem os seguintes softwares instalados:
 
-- Como configurar um projeto Cypress do zero
-- Como visitar páginas locais e remotas
-- Como lidar com os elementos mais comuns encontrados em aplicações web
-- Como testar upload de arquivos
-- Como realizar as mais diversas verificações de resultados esperados
-- Como criar comandos customizados
-- Como lidar com links que abrem em outra aba do navegador
-- Como rodar testes simulando as dimensões de um dispositivo móvel
-- Como resolver os mesmos problemas de diferentes formas, conhecendo a [API do Cypress](https://docs.cypress.io/api/table-of-contents)
-- Como criar uma documentação mínima para seu projeto de testes automatizados
-- Como executar os testes em um _workflow_ de integração contínua sempre que mudanças ocorrerem no código da aplicação (ou dos testes)
-- Como integrar seu _workflow_ de integração contínua com o Cypress Cloud (o serviço de gestão de testes do Cypress na nuvem)
+- **Git** (2.42.1 na data de redação deste documento)  
+- **Node.js** (v20.13.1 na data de redação deste documento)  
+- **npm** (10.8.1 na data de redação deste documento)  
+- **IDE** de sua preferência  
 
-## Vamos começar?
+> **Sugestão:** utilize as mesmas versões listadas acima para evitar incompatibilidades durante o curso.
 
-Vá para a seção [estrutura do curso](./lessons/_course-structure_.md).
+## Instalação
 
-___
+```bash
+npm install
+# ou, de forma abreviada
+npm i
+```
 
-Este é um curso da **Escola Talking About Testing**.
+## Como apoiar este projeto
+
+Se este projeto foi útil para você, deixe uma ⭐ no repositório.  
+
+---
+
+Este projeto foi criado com 💚 por [Walmyr](https://walmyr.dev).  
+Este repositório foi estudado e adaptado por [Iago](https://www.linkedin.com/in/iago-rosa-de-oliveira).  
