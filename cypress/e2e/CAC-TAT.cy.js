@@ -22,6 +22,8 @@ describe('Central de Atendimento ao Cliente TAT', () => {
   })
 
   it('preenche os campos obrigatórios e envia o formulário', () => {
+    cy.clock() // S13 L12
+
     const LongText = Cypress._.repeat('iabadabadu', 50); // repitir 'iabadabadu' 50 vezes (da aula de resolução)
 
     cy.get('input#firstName').type('Iago')
@@ -32,10 +34,16 @@ describe('Central de Atendimento ao Cliente TAT', () => {
     cy.get('button.button').click() // daria para pegar '.button' apenas, ou como na correção, 'button[type="submit"]'
     cy.get('span.success').should('be.visible') // pega mensagem de sucesso
     /* poderia pegar usuando apenas '.success' tbm, que seria a classe success*/
+
+    cy.tick(3000) // S13 L12
+
+    cy.get('span.success').should('not.be.visible') // S13 L12
   })
 
   /* Exercício extra 2 */
   it('exibe mensagem de erro ao submeter o formulário com um email com formatação inválida', () => {
+    cy.clock() // S13 L12
+
     cy.get('input#firstName').type('Iago')
     cy.get('input#lastName').type('Oliveira')
     cy.get('input#email').type('iabadabadu') // forçando o erro digitando email com formatação errada
@@ -43,6 +51,10 @@ describe('Central de Atendimento ao Cliente TAT', () => {
     cy.get('button.button').click()
     cy.get('span.error').should('be.visible') // pega mensagem de erro
     /* poderia pegar usuando apenas '.error' tbm, que seria a classe error*/
+
+    cy.tick(3000) // S13 L12
+
+    cy.get('span.error').should('not.be.visible') // S13 L12
   })
 
   /* Exercício extra 3 */
@@ -61,6 +73,8 @@ describe('Central de Atendimento ao Cliente TAT', () => {
 
   /* Exercício extra 4 */
   it('exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário', () => {
+    cy.clock()
+    
     cy.get('input#firstName').type('Iago')
     cy.get('input#lastName').type('Oliveira')
     cy.get('input#email').type('iagorosa@gmail.com')
@@ -68,6 +82,10 @@ describe('Central de Atendimento ao Cliente TAT', () => {
     cy.get('textarea#open-text-area').type('sla, se vira')
     cy.get('button.button').click()
     cy.get('span.error').should('be.visible') // pega mensagem de sucesso
+
+    cy.tick(3000) // S13 L12
+
+    cy.get('span.success').should('not.be.visible') // S13 L12
   })
 
   /* Exercício extra 5 */
@@ -83,10 +101,18 @@ describe('Central de Atendimento ao Cliente TAT', () => {
     // dava para fazer assim tbm -> cy.get('input#firstName').type('Iago').should('have.value', 'Iago').clear().should('have.value', '')
   })
 
-  /* Exercício extra 6 */
-  it('exibe mensagem de erro ao submeter o formulário sem preencher os campos obrigatórios', () => {
-    cy.get('button.button').click()
-    cy.get('span.error').should('be.visible')
+  Cypress._.times(5, () => { /*S13 L12*/
+    /* Exercício extra 6 */
+    it('exibe mensagem de erro ao submeter o formulário sem preencher os campos obrigatórios', () => {
+      cy.clock()
+      
+      cy.get('button.button').click()
+      cy.get('span.error').should('be.visible')
+
+      cy.tick(3000) // S13 L12
+
+      cy.get('span.success').should('not.be.visible') // S13 L12
+    })
   })
 
   /* Exercício extra 7 */
@@ -189,5 +215,44 @@ describe('Central de Atendimento ao Cliente TAT', () => {
 
   /* Ex. Extra 2 (S8/L7) */
   // privacyPolicy.cy.js
+
+  /* S13 L12 */
+  it('exibe e oculta as mensagens de sucesso e erro usando .invoke()', () => {
+  cy.get('.success')
+    .should('not.be.visible')
+    .invoke('show')
+    .should('be.visible')
+    .and('contain', 'Mensagem enviada com sucesso.')
+    .invoke('hide')
+    .should('not.be.visible')
+  cy.get('.error')
+    .should('not.be.visible')
+    .invoke('show')
+    .should('be.visible')
+    .and('contain', 'Valide os campos obrigatórios!')
+    .invoke('hide')
+    .should('not.be.visible')
+  })
+
+  /* S13 L12 */
+  it('preenche o campo da área de texto usando o comando invoke', () => {
+    cy.get('#open-text-area')
+      .invoke('val', 'um texto qualquer')
+      .should('have.value', 'um texto qualquer')
+  })
+
+  /* S13 L12 */
+  it('faz uma requisição HTTP', () => {
+    cy.request('https://cac-tat-v3.s3.eu-central-1.amazonaws.com/index.html')
+      .as('getRequest')
+      .its('status')
+      .should('be.equal', 200)
+    cy.get('@getRequest')
+      .its('statusText')
+      .should('be.equal', 'OK')
+    cy.get('@getRequest')
+      .its('body')
+      .should('include', 'CAC TAT') // dentro de todo o html tem o texto tal
+  })
 
 })
