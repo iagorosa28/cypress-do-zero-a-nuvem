@@ -255,4 +255,13 @@ describe('Central de Atendimento ao Cliente TAT', () => {
       .should('include', 'CAC TAT') // dentro de todo o html tem o texto tal
   })
 
+  /* S14 L13 */
+  it.only('GATO!', () => {
+    cy.get('#cat')
+      .invoke('show')
+      .should('be.visible')
+    // (o que fiz está certo) coisas adicionais da resolução dele:
+    cy.get('#title')
+      .invoke('text', 'CAT TAT')
+  })
 })
